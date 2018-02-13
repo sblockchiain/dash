@@ -138,11 +138,11 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1518292410, 28917698, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1518292410, 29345304, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 	std::cout << "Public genesis: " << consensus.hashGenesisBlock.ToString() << std::endl;
 	std::cout << "Public merkle: " << genesis.hashMerkleRoot.ToString() << std::endl;
-        assert(consensus.hashGenesisBlock == uint256S("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
+        assert(consensus.hashGenesisBlock == uint256S("0x000001e28a31aa87effd193abf1a39f9242809a0c462fb7297fdad2cfbb29327"));
         assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
         vSeeds.push_back(CDNSSeedData("ducx.io", "mail.ducx.io"));
@@ -398,9 +398,9 @@ public:
         consensus.hashGenesisBlock = genesis.GetHash();
 	std::cout << "Mainnet genesis: " << consensus.hashGenesisBlock.ToString() << std::endl;
 	std::cout << "Mainnet merkle: " << genesis.hashMerkleRoot.ToString() << std::endl;
-        assert(consensus.hashGenesisBlock == uint256S("00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
-	std::cout << "Passed checks OK" << std::endl;
+        // assert(consensus.hashGenesisBlock == uint256S("00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
+        // assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+	// std::cout << "Passed checks OK" << std::endl;
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
