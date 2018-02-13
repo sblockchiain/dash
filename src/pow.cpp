@@ -13,6 +13,7 @@
 #include "util.h"
 
 #include <math.h>
+#include <iostream>
 
 unsigned int static KimotoGravityWell(const CBlockIndex* pindexLast, const Consensus::Params& params) {
     const CBlockIndex *BlockLastSolved = pindexLast;
@@ -231,8 +232,10 @@ bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&
         return error("CheckProofOfWork(): nBits below minimum work");
 
     // Check proof of work matches claimed amount
-    if (UintToArith256(hash) > bnTarget)
+    if (UintToArith256(hash) > bnTarget) {
+	std::cout << "Wrong hash: " << UintToArith256(hash).ToString() << ", target=" << bnTarget.ToString() << std::endl;
         return error("CheckProofOfWork(): hash doesn't match nBits");
+    }
 
     return true;
 }

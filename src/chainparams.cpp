@@ -12,6 +12,7 @@
 #include "utilstrencodings.h"
 
 #include <assert.h>
+#include <iostream>
 
 #include <boost/assign/list_of.hpp>
 
@@ -91,11 +92,11 @@ public:
         consensus.nMajorityWindow = 1000;
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x000007d91d1254d60e2dd1ae580383070a4ddffa4c64c2eeb4a2f9ecc0414343");
-        consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
+        consensus.powLimit = uint256S("6175c65b959ecfc6920c473baed97f346c44a0f7915b66d0465ebb901cf196b7");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Dash: 2.5 minutes
-        consensus.fPowAllowMinDifficultyBlocks = false;
-        consensus.fPowNoRetargeting = false;
+        consensus.fPowAllowMinDifficultyBlocks = true;
+        consensus.fPowNoRetargeting = true;
         consensus.nPowKGWHeight = 15200;
         consensus.nPowDGWHeight = 34140;
         consensus.nRuleChangeActivationThreshold = 1916; // 95% of 2016
@@ -132,21 +133,22 @@ public:
         pchMessageStart[2] = 0x6b;
         pchMessageStart[3] = 0xbd;
         vAlertPubKey = ParseHex("048240a8748a80a286b270ba126705ced4f2ce5a7847b3610ea3c06513150dade2a8512ed5ea86320824683fc0818f0ac019214973e677acd1244f6d0571fc5103");
-        nDefaultPort = 9999;
+        nDefaultPort = 19199;
         nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1390095618, 28917698, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1518292410, 28917698, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
+	std::cout << "Public genesis: " << consensus.hashGenesisBlock.ToString() << std::endl;
+	std::cout << "Public merkle: " << genesis.hashMerkleRoot.ToString() << std::endl;
         assert(consensus.hashGenesisBlock == uint256S("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
         assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
 
-
-        vSeeds.push_back(CDNSSeedData("dash.org", "dnsseed.dash.org"));
-        vSeeds.push_back(CDNSSeedData("dashdot.io", "dnsseed.dashdot.io"));
-        vSeeds.push_back(CDNSSeedData("masternode.io", "dnsseed.masternode.io"));
-        vSeeds.push_back(CDNSSeedData("dashpay.io", "dnsseed.dashpay.io"));
+        vSeeds.push_back(CDNSSeedData("ducx.io", "mail.ducx.io"));
+        vSeeds.push_back(CDNSSeedData("ducx.io", "mail.ducx.io"));
+        vSeeds.push_back(CDNSSeedData("ducx.io", "mail.ducx.io"));
+        vSeeds.push_back(CDNSSeedData("ducx.io", "mail.ducx.io"));
 
         // Dash addresses start with 'X'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,76);
@@ -176,6 +178,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
+            ( 0, uint256S("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6")),
+/*
             (  1500, uint256S("0x000000aaf0300f59f49bc3e970bad15c11f961fe2347accffff19d96ec9778e3"))
             (  4991, uint256S("0x000000003b01809551952460744d5dbb8fcbd6cbae3c220267bf7fa43f837367"))
             (  9918, uint256S("0x00000000213e229f332c0ffbe34defdaa9e74de87f2d8d1f01af8d121c3c170b"))
@@ -197,8 +201,9 @@ public:
             ( 523412, uint256S("0x000000000000e54f036576a10597e0e42cc22a5159ce572f999c33975e121d4d"))
             ( 523930, uint256S("0x0000000000000bccdb11c2b1cfb0ecab452abf267d89b7f46eaf2d54ce6e652c"))
             ( 750000, uint256S("0x00000000000000b4181bbbdddbae464ce11fede5d0292fb63fdede1e7c8ab21c")),
+*/
             1507424630, // * UNIX timestamp of last checkpoint block
-            3701128,    // * total number of transactions between genesis and last checkpoint
+            0,    // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             5000        // * estimated number of transactions per day after checkpoint
         };
@@ -232,7 +237,7 @@ public:
         consensus.nMajorityWindow = 100;
         consensus.BIP34Height = 1;
         consensus.BIP34Hash = uint256S("0x0000047d24635e347be3aaaeb66c26be94901a2f962feccd4f95090191f208c1");
-        consensus.powLimit = uint256S("00000fffff000000000000000000000000000000000000000000000000000000");
+        consensus.powLimit = uint256S("6175c65b959ecfc6920c473baed97f346c44a0f7915b66d0465ebb901cf196b7");
         consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
         consensus.nPowTargetSpacing = 2.5 * 60; // Dash: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
@@ -268,20 +273,24 @@ public:
         pchMessageStart[2] = 0xca;
         pchMessageStart[3] = 0xff;
         vAlertPubKey = ParseHex("04517d8a699cb43d3938d7b24faaff7cda448ca4ea267723ba614784de661949bf632d6304316b244646dea079735b9a6fc4af804efb4752075b9fe2245e14e412");
-        nDefaultPort = 19999;
+        nDefaultPort = 19191;
         nMaxTipAge = 0x7fffffff; // allow mining on top of old blocks for testnet
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1390666206UL, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1518292410UL, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c"));
+
+	std::cout << "Testnet enesis: " << consensus.hashGenesisBlock.ToString() << std::endl;
+	std::cout << "Testnet merkle: " << genesis.hashMerkleRoot.ToString() << std::endl;
+        assert(consensus.hashGenesisBlock == uint256S("0x595d358e2b28d7430724a43556b6b2fe5e94e30a30a309fb2b969eec1609e70c"));
         assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+	std::cout << "Passed checks OK" << std::endl;
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        vSeeds.push_back(CDNSSeedData("dashdot.io",  "testnet-seed.dashdot.io"));
-        vSeeds.push_back(CDNSSeedData("masternode.io", "test.dnsseed.masternode.io"));
+        vSeeds.push_back(CDNSSeedData("ducx.io",  "seed1test.ducx.io"));
+        vSeeds.push_back(CDNSSeedData("ducx.io", "seed2test.ducx.io"));
 
         // Testnet Dash addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
@@ -377,7 +386,7 @@ public:
         consensus.defaultAssumeValid = uint256S("0x00");
 
         pchMessageStart[0] = 0xfc;
-        pchMessageStart[1] = 0xc1;
+        pchMessageStart[1] = 0xc2;
         pchMessageStart[2] = 0xb7;
         pchMessageStart[3] = 0xdc;
         nMaxTipAge = 6 * 60 * 60; // ~144 blocks behind -> 2 x fork detection time, was 24 * 60 * 60 in bitcoin
@@ -385,10 +394,13 @@ public:
         nDefaultPort = 19994;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1417713337, 1096447, 0x207fffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1518292410, 28917698, 0x1e0ffff0, 1, 50 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e"));
+	std::cout << "Mainnet genesis: " << consensus.hashGenesisBlock.ToString() << std::endl;
+	std::cout << "Mainnet merkle: " << genesis.hashMerkleRoot.ToString() << std::endl;
+        assert(consensus.hashGenesisBlock == uint256S("00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
         assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+	std::cout << "Passed checks OK" << std::endl;
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
@@ -403,10 +415,10 @@ public:
 
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
-            ( 0, uint256S("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e")),
+            ( 0, uint256S("0x0671ac4ea9e6248ba5a4d9a8bbcca7ed4c4a9219daad2137d07171f71d75b75f")),
+            1518292410,
             0,
-            0,
-            0
+            1000
         };
         // Regtest Dash addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
